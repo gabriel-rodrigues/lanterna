@@ -1,10 +1,11 @@
-package br.com.apesoftware.lanterna;
+package br.com.apesoftware.lanterna.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import br.com.apesoftware.lanterna.R;
 import br.com.apesoftware.lanterna.factory.FactoryCamera;
 import br.com.apesoftware.lanterna.interfaces.Lanterna;
 
