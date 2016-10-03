@@ -27,7 +27,7 @@ public class CameraLollipopSuperior implements Lanterna {
 
         this.flashDisponivel = contexto.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-        if(!this.flashLigado)
+        if(!this.flashDisponivel)
             throw new FlashNaoDisponivelException();
 
         this.cameraManager   = (CameraManager)contexto.getSystemService(Context.CAMERA_SERVICE);
