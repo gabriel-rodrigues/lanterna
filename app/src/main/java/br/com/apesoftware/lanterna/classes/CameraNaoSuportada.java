@@ -7,9 +7,6 @@ import android.hardware.Camera;
 import br.com.apesoftware.lanterna.interfaces.Lanterna;
 
 
-/**
- * Created by gabrielllbsb on 03/10/16.
- */
 
 @SuppressWarnings("deprecation")
 public class CameraNaoSuportada implements Lanterna {

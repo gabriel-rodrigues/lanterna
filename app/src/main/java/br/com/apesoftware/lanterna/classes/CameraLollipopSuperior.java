@@ -5,14 +5,12 @@ import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
+import android.media.MediaPlayer;
 
 
+import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
+import br.com.apesoftware.lanterna.exceptions.FlashNaoDisponivelException;
 import br.com.apesoftware.lanterna.interfaces.Lanterna;
-
-/**
- * Created by gabrielllbsb on 03/10/16.
- */
-
 
 
 public class CameraLollipopSuperior implements Lanterna {
@@ -23,9 +21,20 @@ public class CameraLollipopSuperior implements Lanterna {
     private boolean flashLigado = false;
     private String cameraId;
 
-    public CameraLollipopSuperior(final Context contexto) {
+
+    public CameraLollipopSuperior(final Context contexto)
+            throws FlashNaoDisponivelException, CameraNaoDisponivelException {
+
         this.flashDisponivel = contexto.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        this.cameraManager = (CameraManager)contexto.getSystemService(Context.CAMERA_SERVICE);
+
+        if(!this.flashLigado)
+            throw new FlashNaoDisponivelException();
+
+        this.cameraManager   = (CameraManager)contexto.getSystemService(Context.CAMERA_SERVICE);
+
+        if(this.cameraManager == null)
+            throw new CameraNaoDisponivelException();
+
         this.setCameraId();
     }
 
