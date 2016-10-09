@@ -19,44 +19,45 @@ public class CameraNaoSuportada implements Lanterna {
     public CameraNaoSuportada(final Context contexto) {
         this.flashDisponivel = contexto.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
 
-        this.setCamera();
-        this.setParameters();
+        this.prepareCamera();
     }
 
-    private void setCamera  () {
-        this.camera  = Camera.open();
 
-    }
+    private void prepareCamera ()  {
 
-    private void setParameters() {
-        this.parameters = this.camera.getParameters();
+        if (this.camera == null) {
+            try {
+                this.camera     = Camera.open();
+                this.parameters = this.camera.getParameters();
+                if (this.flashDisponivel) {
+                    this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    this.camera.setParameters(this.parameters);
+                    this.camera.startPreview();
+                }
+            } catch (Exception e) {
+                throw e;
+            }
+        }
     }
 
     @Override
     public void ligar() {
 
         if(!this.flashLigado) {
-            this.parameters = this.camera.getParameters();
-            this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+            this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             this.camera.setParameters(this.parameters);
-            this.camera.startPreview();
             this.flashLigado = true;
         }
-
-        return;
     }
 
     @Override
     public void desligar() {
+
         if(this.flashLigado) {
-            this.parameters = camera.getParameters();
             this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             this.camera.setParameters(this.parameters);
-            this.camera.stopPreview();
             this.flashLigado = false;
         }
-
-        return;
     }
 
     @Override

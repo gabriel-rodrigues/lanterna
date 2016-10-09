@@ -13,7 +13,7 @@ import br.com.apesoftware.lanterna.interfaces.Lanterna;
  public class FactoryCamera {
 
     public static Lanterna criarCamera(Context context) throws FlashNaoDisponivelException, CameraNaoDisponivelException {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
             return new CameraLollipopSuperior(context);
         }
         else {

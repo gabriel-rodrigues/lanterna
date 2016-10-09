@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
-import android.media.MediaPlayer;
 
 
 import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
@@ -20,6 +19,7 @@ public class CameraLollipopSuperior implements Lanterna {
     private boolean flashDisponivel = false;
     private boolean flashLigado = false;
     private String cameraId;
+
 
 
     public CameraLollipopSuperior(final Context contexto)
@@ -52,7 +52,13 @@ public class CameraLollipopSuperior implements Lanterna {
     public void ligar() {
         if(!this.flashLigado) {
             try {
-                this.cameraManager.setTorchMode(this.cameraId, !this.flashLigado);
+
+//                CaptureRequest.Builder builder = this.camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+//                builder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH); //CameraMetadata.FLASH_MODE_OFF);
+//                CaptureRequest request = builder.build();
+
+
+                this.cameraManager.setTorchMode(this.cameraId, true);
                 this.flashLigado = true;
             }
             catch (CameraAccessException ex) {
@@ -67,7 +73,7 @@ public class CameraLollipopSuperior implements Lanterna {
     public void desligar() {
         if(this.flashLigado) {
             try {
-                this.cameraManager.setTorchMode(this.cameraId, !this.flashLigado);
+                this.cameraManager.setTorchMode(this.cameraId, false);
                 this.flashLigado = false;
             }
             catch (CameraAccessException ex) {
