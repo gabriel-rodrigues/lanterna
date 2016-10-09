@@ -8,8 +8,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+
 
 import br.com.apesoftware.lanterna.R;
 import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
@@ -32,10 +31,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         Button button = (Button)this.findViewById(R.id.btnLigar);
         button.setOnClickListener(this);
-
-        AdView adView       = (AdView)this.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
     }
 
     @Override
