@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 
 import br.com.apesoftware.lanterna.R;
-import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
-import br.com.apesoftware.lanterna.exceptions.FlashNaoDisponivelException;
 import br.com.apesoftware.lanterna.factory.FactoryCamera;
 import br.com.apesoftware.lanterna.interfaces.Lanterna;
 
@@ -42,18 +40,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 this.lanterna = FactoryCamera.criarCamera(this);
             }
 
-            if(this.lanterna.isLigada()) {
+            if(this.lanterna.isFlashLigado()) {
                 this.lanterna.desligar();
             }
             else {
                 this.lanterna.ligar();
             }
-        }
-        catch (FlashNaoDisponivelException ex) {
-            this.exibirToast(ex.getMessage());
-        }
-        catch (CameraNaoDisponivelException ex) {
-            this.exibirToast(ex.getMessage());
         }
         catch (Exception ex) {
             this.exibirToast(ex.getMessage());
@@ -63,8 +55,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onStop() {
         super.onStop();
-        if(this.lanterna.isLigada()) {
-            this.lanterna.desligar();
+        if(this.lanterna.isFlashLigado()) {
+           try {
+               this.lanterna.desligar();
+           }
+           catch (Exception ex) {
+               this.exibirToast(ex.getMessage());
+           }
         }
     }
 

@@ -1,68 +1,61 @@
 package br.com.apesoftware.lanterna.classes;
 
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.hardware.Camera;
 
-import br.com.apesoftware.lanterna.interfaces.Lanterna;
+import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
+import br.com.apesoftware.lanterna.exceptions.FlashNaoDisponivelException;
 
 
 
 @SuppressWarnings("deprecation")
-public class CameraNaoSuportada implements Lanterna {
+public class CameraNaoSuportada extends CameraAbstract {
 
     private Camera camera;
-    private boolean flashLigado = false;
-    private boolean flashDisponivel = false;
     private Camera.Parameters parameters;
 
-    public CameraNaoSuportada(final Context contexto) {
-        this.flashDisponivel = contexto.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-
-        this.prepareCamera();
-    }
-
-
-    private void prepareCamera ()  {
-
-        if (this.camera == null) {
-            try {
-                this.camera     = Camera.open();
-                this.parameters = this.camera.getParameters();
-                if (this.flashDisponivel) {
-                    this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    this.camera.setParameters(this.parameters);
-                    this.camera.startPreview();
-                }
-            } catch (Exception e) {
-                throw e;
-            }
-        }
+    public CameraNaoSuportada(Context contexto) throws FlashNaoDisponivelException, CameraNaoDisponivelException {
+        super(contexto);
     }
 
     @Override
     public void ligar() {
-
-        if(!this.flashLigado) {
-            this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            this.camera.setParameters(this.parameters);
-            this.flashLigado = true;
+        if(!this.isFlashLigado()) {
+            this.configurarParameters(Camera.Parameters.FLASH_MODE_TORCH);
+            this.setFlashLigado(true);
         }
     }
 
     @Override
     public void desligar() {
-
-        if(this.flashLigado) {
-            this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            this.camera.setParameters(this.parameters);
-            this.flashLigado = false;
+        if(this.isFlashLigado()) {
+            this.configurarParameters(Camera.Parameters.FLASH_MODE_OFF);
+            this.setFlashLigado(false);
         }
     }
 
     @Override
-    public boolean isLigada() {
-        return this.flashLigado;
+    public void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
+        this.camera = Camera.open();
+
+        if(this.camera == null)
+            throw  new CameraNaoDisponivelException();
     }
+
+    @Override
+    protected void prepareCamera() throws CameraNaoDisponivelException {
+
+        this.throwExceptionParaCameraIndisponivel();
+        this.parameters = this.camera.getParameters();
+        this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        this.camera.setParameters(this.parameters);
+        this.camera.startPreview();
+    }
+
+    private void configurarParameters(String modo) {
+        this.parameters.setFlashMode(modo);
+        this.camera.setParameters(this.parameters);
+    }
+
 
 }
