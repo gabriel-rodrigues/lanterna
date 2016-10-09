@@ -14,11 +14,13 @@
 
 
 
-   <Button
+
+
+   <ImageView
+       android:id="@+id/imagemView"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="@string/txt_botao_ligar"
-       android:id="@+id/btnLigar"
+       android:src="@drawable/imagem_desligada"
        android:layout_gravity="center"/>
 
 </FrameLayout>

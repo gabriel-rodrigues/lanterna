@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -17,6 +18,7 @@ import br.com.apesoftware.lanterna.interfaces.Lanterna;
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private Lanterna lanterna;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
 
-        Button button = (Button)this.findViewById(R.id.btnLigar);
-        button.setOnClickListener(this);
+        this.imageView = (ImageView)this.findViewById(R.id.imagemView);
+        this.imageView.setOnClickListener(this);
     }
 
     @Override
@@ -42,9 +44,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             if(this.lanterna.isFlashLigado()) {
                 this.lanterna.desligar();
+                this.imageView.setImageResource(R.drawable.imagem_desligada);
             }
             else {
                 this.lanterna.ligar();
+                this.imageView.setImageResource(R.drawable.imagem_ligada);
             }
         }
         catch (Exception ex) {
