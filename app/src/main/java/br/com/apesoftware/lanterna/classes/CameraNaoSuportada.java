@@ -30,20 +30,32 @@ public class CameraNaoSuportada extends CameraAbstract {
 
     @Override
     public void desligar() {
-        if(this.isFlashLigado()) {
-            this.configurarParameters(Camera.Parameters.FLASH_MODE_OFF);
-            this.setFlashLigado(false);
-            this.camera     = null;
-            this.parameters = null;
-        }
+
+        this.configurarParameters(Camera.Parameters.FLASH_MODE_OFF);
+        this.setFlashLigado(false);
+        this.camera.release();
+        this.camera     = null;
+        this.parameters = null;
     }
 
     @Override
     protected void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
-        this.camera = Camera.open();
+        try {
 
-        if(this.camera == null)
-            throw  new CameraNaoDisponivelException();
+            this.camera = Camera.open();
+
+            if(this.camera == null)
+                throw  new CameraNaoDisponivelException();
+        }
+        catch (CameraNaoDisponivelException ex) {
+            throw ex;
+        }
+        catch (RuntimeException ex) {
+            throw new CameraNaoDisponivelException(CameraNaoDisponivelException.MENSAGEM_CAMERA_EM_USO);
+        }
+        catch (Exception ex)  {
+            throw new CameraNaoDisponivelException(ex.getMessage());
+        }
     }
 
     @Override

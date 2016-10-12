@@ -78,7 +78,7 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
         this.cameraManager.unregisterAvailabilityCallback(callbackDispobibilidade);
 
         if(callbackDispobibilidade.isCameraEmUso()) {
-            throw new CameraNaoDisponivelException("Feche outro aplicativo que esteja fazendo uso da câmera e tente novamente.");
+            throw new CameraNaoDisponivelException(CameraNaoDisponivelException.MENSAGEM_CAMERA_EM_USO);
         }
 
     }
