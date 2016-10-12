@@ -34,7 +34,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
         try {
             if(this.lanterna == null) {
                 this.lanterna = FactoryCamera.criarCamera(this);
@@ -57,6 +56,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         if(this.lanterna.isFlashLigado()) {
             try {
                 this.lanterna.desligar();

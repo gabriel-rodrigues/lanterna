@@ -26,7 +26,6 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
     @Override
     public void ligar() throws CameraNaoDisponivelException {
         try {
-
             this.cameraManager.setTorchMode(this.cameraId, true);
             this.setFlashLigado(true);
         }
@@ -50,7 +49,6 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
     protected void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
         this.cameraManager   = (CameraManager)this.contexto.getSystemService(Context.CAMERA_SERVICE);
 
-
         if(this.cameraManager == null)
             throw new CameraNaoDisponivelException();
 
@@ -60,8 +58,8 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
 
     @Override
     protected void prepareCamera() throws CameraNaoDisponivelException {
-
         this.throwExceptionParaCameraIndisponivel();
+
         try {
             this.cameraId = this.cameraManager.getCameraIdList()[0];
         }
@@ -72,7 +70,6 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
 
 
     private void throwExceptionParaCameraEmUso() throws CameraNaoDisponivelException {
-
         DisponibilidadeCameraMarshmallowOrSuperior callbackDispobibilidade = new DisponibilidadeCameraMarshmallowOrSuperior();
         this.cameraManager.registerAvailabilityCallback(callbackDispobibilidade, null);
         this.cameraManager.unregisterAvailabilityCallback(callbackDispobibilidade);

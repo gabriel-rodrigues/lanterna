@@ -30,7 +30,6 @@ public class CameraNaoSuportada extends CameraAbstract {
 
     @Override
     public void desligar() {
-
         this.configurarParameters(Camera.Parameters.FLASH_MODE_OFF);
         this.setFlashLigado(false);
         this.camera.release();
@@ -41,7 +40,6 @@ public class CameraNaoSuportada extends CameraAbstract {
     @Override
     protected void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
         try {
-
             this.camera = Camera.open();
 
             if(this.camera == null)
@@ -60,7 +58,6 @@ public class CameraNaoSuportada extends CameraAbstract {
 
     @Override
     protected void prepareCamera() throws CameraNaoDisponivelException {
-
         this.throwExceptionParaCameraIndisponivel();
         this.parameters = this.camera.getParameters();
         this.parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
