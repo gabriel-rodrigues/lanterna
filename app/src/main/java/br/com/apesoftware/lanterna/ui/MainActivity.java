@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,7 +36,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
 
         try {
-
             if(this.lanterna == null) {
                 this.lanterna = FactoryCamera.criarCamera(this);
             }
@@ -57,15 +55,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if(this.lanterna.isFlashLigado()) {
-           try {
-               this.lanterna.desligar();
-           }
-           catch (Exception ex) {
-               this.exibirToast(ex.getMessage());
-           }
+            try {
+                this.lanterna.desligar();
+            }
+            catch (Exception ex) {
+                this.exibirToast(ex.getMessage());
+            }
         }
     }
 

@@ -29,7 +29,7 @@ public abstract class CameraAbstract implements Lanterna {
     @Override
     public abstract void desligar() throws CameraNaoDisponivelException;
 
-    public abstract void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException;
+    protected abstract void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException;
 
     public final void throwExceptionParaFlashIndisponivel() throws FlashNaoDisponivelException {
         if(!this.hasFlash())

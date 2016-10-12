@@ -19,11 +19,13 @@ public class CameraNaoSuportada extends CameraAbstract {
     }
 
     @Override
-    public void ligar() {
-        if(!this.isFlashLigado()) {
-            this.configurarParameters(Camera.Parameters.FLASH_MODE_TORCH);
-            this.setFlashLigado(true);
+    public void ligar() throws CameraNaoDisponivelException {
+        if(this.camera == null && this.parameters == null) {
+           this.prepareCamera();
         }
+
+        this.configurarParameters(Camera.Parameters.FLASH_MODE_TORCH);
+        this.setFlashLigado(true);
     }
 
     @Override
@@ -31,11 +33,13 @@ public class CameraNaoSuportada extends CameraAbstract {
         if(this.isFlashLigado()) {
             this.configurarParameters(Camera.Parameters.FLASH_MODE_OFF);
             this.setFlashLigado(false);
+            this.camera     = null;
+            this.parameters = null;
         }
     }
 
     @Override
-    public void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
+    protected void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
         this.camera = Camera.open();
 
         if(this.camera == null)
@@ -55,6 +59,7 @@ public class CameraNaoSuportada extends CameraAbstract {
     private void configurarParameters(String modo) {
         this.parameters.setFlashMode(modo);
         this.camera.setParameters(this.parameters);
+
     }
 
 

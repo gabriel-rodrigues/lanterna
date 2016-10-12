@@ -7,6 +7,7 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 
 
+import br.com.apesoftware.lanterna.classes.callbacks.DisponibilidadeCameraMarshmallowOrSuperior;
 import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
 import br.com.apesoftware.lanterna.exceptions.FlashNaoDisponivelException;
 
@@ -24,39 +25,36 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
 
     @Override
     public void ligar() throws CameraNaoDisponivelException {
-        if(!this.isFlashLigado()) {
-            try {
+        try {
 
-                this.cameraManager.setTorchMode(this.cameraId, true);
-                this.setFlashLigado(true);
-            }
-            catch (CameraAccessException ex) {
-                throw new CameraNaoDisponivelException(ex.getMessage());
-            }
+            this.cameraManager.setTorchMode(this.cameraId, true);
+            this.setFlashLigado(true);
         }
-
-
+        catch (CameraAccessException ex) {
+            throw new CameraNaoDisponivelException(ex.getMessage());
+        }
     }
 
     @Override
     public void desligar() throws CameraNaoDisponivelException {
-        if(this.isFlashLigado()) {
-            try {
-                this.cameraManager.setTorchMode(this.cameraId, false);
-                this.setFlashLigado(false);
-            }
-            catch (CameraAccessException ex) {
-                throw new CameraNaoDisponivelException(ex.getMessage());
-            }
+        try {
+            this.cameraManager.setTorchMode(this.cameraId, false);
+            this.setFlashLigado(false);
+        }
+        catch (CameraAccessException ex) {
+            throw new CameraNaoDisponivelException(ex.getMessage());
         }
     }
 
     @Override
-    public void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
+    protected void throwExceptionParaCameraIndisponivel() throws CameraNaoDisponivelException {
         this.cameraManager   = (CameraManager)this.contexto.getSystemService(Context.CAMERA_SERVICE);
+
 
         if(this.cameraManager == null)
             throw new CameraNaoDisponivelException();
+
+        this.throwExceptionParaCameraEmUso();
     }
 
 
@@ -72,5 +70,17 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
         }
     }
 
+
+    private void throwExceptionParaCameraEmUso() throws CameraNaoDisponivelException {
+
+        DisponibilidadeCameraMarshmallowOrSuperior callbackDispobibilidade = new DisponibilidadeCameraMarshmallowOrSuperior();
+        this.cameraManager.registerAvailabilityCallback(callbackDispobibilidade, null);
+        this.cameraManager.unregisterAvailabilityCallback(callbackDispobibilidade);
+
+        if(callbackDispobibilidade.isCameraEmUso()) {
+            throw new CameraNaoDisponivelException("Feche outro aplicativo que esteja fazendo uso da câmera e tente novamente.");
+        }
+
+    }
 
 }
