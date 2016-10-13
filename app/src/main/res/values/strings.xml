@@ -2,4 +2,10 @@
     <string name="app_name">lanterna</string>
     <string name="txt_botao_ligar">Ligar</string>
     <string name="banner_ad_unit_id">ca-app-pub-3024203658255761/2673986739</string>
+
+    <!-- mensagens de erro -->
+    <string name="erro_padrao_camera_nao_disponivel">Não foi possível localizar uma câmera neste dispositivo.</string>
+    <string name="erro_padrao_camera_em_uso">Feche outro aplicativo que esteja fazendo uso da câmera e tente novamente.</string>
+    <string name="erro_padrao_flash_nao_disponivel">A camera não possui um flash para ser utilizado.</string>
+
 </resources>

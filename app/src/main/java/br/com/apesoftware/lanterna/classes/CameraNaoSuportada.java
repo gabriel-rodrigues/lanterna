@@ -43,13 +43,13 @@ public class CameraNaoSuportada extends CameraAbstract {
             this.camera = Camera.open();
 
             if(this.camera == null)
-                throw  new CameraNaoDisponivelException();
+                throw  new CameraNaoDisponivelException(this.mensagemParaCameraNaoDisponivel);
         }
         catch (CameraNaoDisponivelException ex) {
             throw ex;
         }
         catch (RuntimeException ex) {
-            throw new CameraNaoDisponivelException(CameraNaoDisponivelException.MENSAGEM_CAMERA_EM_USO);
+            throw new CameraNaoDisponivelException(this.mensagemParaCameraEmUso);
         }
         catch (Exception ex)  {
             throw new CameraNaoDisponivelException(ex.getMessage());

@@ -50,7 +50,7 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
         this.cameraManager   = (CameraManager)this.contexto.getSystemService(Context.CAMERA_SERVICE);
 
         if(this.cameraManager == null)
-            throw new CameraNaoDisponivelException();
+            throw new CameraNaoDisponivelException(this.mensagemParaCameraNaoDisponivel);
 
         this.throwExceptionParaCameraEmUso();
     }
@@ -75,7 +75,7 @@ public class CameraMarshmallowOrSuperior extends CameraAbstract {
         this.cameraManager.unregisterAvailabilityCallback(callbackDispobibilidade);
 
         if(callbackDispobibilidade.isCameraEmUso()) {
-            throw new CameraNaoDisponivelException(CameraNaoDisponivelException.MENSAGEM_CAMERA_EM_USO);
+            throw new CameraNaoDisponivelException(this.mensagemParaCameraEmUso);
         }
 
     }

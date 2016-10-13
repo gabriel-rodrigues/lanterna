@@ -1,11 +1,15 @@
 package br.com.apesoftware.lanterna.classes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 
+import br.com.apesoftware.lanterna.R;
 import br.com.apesoftware.lanterna.exceptions.CameraNaoDisponivelException;
 import br.com.apesoftware.lanterna.exceptions.FlashNaoDisponivelException;
 import br.com.apesoftware.lanterna.interfaces.Lanterna;
+import butterknife.BindString;
+import butterknife.ButterKnife;
 
 
 public abstract class CameraAbstract implements Lanterna {
@@ -13,11 +17,22 @@ public abstract class CameraAbstract implements Lanterna {
     private boolean flashDisponivel = false;
     private boolean flashLigado     = false;
 
+
     protected final Context contexto;
 
+    @BindString(R.string.erro_padrao_flash_nao_disponivel)
+    protected String mensagemParaFlashNaoDisponivel;
+
+    @BindString(R.string.erro_padrao_camera_em_uso)
+    protected String mensagemParaCameraEmUso;
+
+    @BindString(R.string.erro_padrao_camera_nao_disponivel)
+    protected String mensagemParaCameraNaoDisponivel;
 
     public CameraAbstract(final Context contexto) throws FlashNaoDisponivelException, CameraNaoDisponivelException {
         this.contexto        = contexto;
+        ButterKnife.bind(this, (Activity) this.contexto);
+
         this.prepararFlash();
         this.prepareCamera();
 
@@ -33,7 +48,7 @@ public abstract class CameraAbstract implements Lanterna {
 
     public final void throwExceptionParaFlashIndisponivel() throws FlashNaoDisponivelException {
         if(!this.hasFlash())
-            throw new FlashNaoDisponivelException();
+            throw new FlashNaoDisponivelException(this.mensagemParaFlashNaoDisponivel);
     }
 
 

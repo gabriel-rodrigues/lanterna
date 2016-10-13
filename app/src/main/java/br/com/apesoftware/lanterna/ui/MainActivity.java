@@ -13,11 +13,16 @@ import android.widget.Toast;
 import br.com.apesoftware.lanterna.R;
 import br.com.apesoftware.lanterna.factory.FactoryCamera;
 import br.com.apesoftware.lanterna.interfaces.Lanterna;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private Lanterna lanterna;
-    private ImageView imageView;
+
+    @BindView(R.id.imagemView)
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +32,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        this.imageView = (ImageView)this.findViewById(R.id.imagemView);
-        this.imageView.setOnClickListener(this);
+        ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.imagemView)
     @Override
     public void onClick(View v) {
         try {
