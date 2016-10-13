@@ -22,7 +22,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Lanterna lanterna;
 
     @BindView(R.id.imagemView)
-    ImageView imageView;
+    protected ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         try {
+
             if(this.lanterna == null) {
                 this.lanterna = FactoryCamera.criarCamera(this);
             }
