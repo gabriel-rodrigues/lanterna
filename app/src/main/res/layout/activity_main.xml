@@ -12,10 +12,6 @@
     android:background="@color/blackBackground"
     tools:context="br.com.apesoftware.lanterna.ui.MainActivity">
 
-
-
-
-
    <ImageView
       android:src="@drawable/imagem_desligada"
        android:id="@+id/imagemView"
@@ -27,7 +23,7 @@
 
    <com.google.android.gms.ads.AdView
        android:id="@+id/adView"
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_gravity="bottom|center"
        ads:adSize="BANNER"

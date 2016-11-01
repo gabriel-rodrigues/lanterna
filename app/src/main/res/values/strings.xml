@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">lanterna</string>
     <string name="txt_botao_ligar">Ligar</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3024203658255761/2673986739</string>
+    <string name="banner_ad_unit_id">ca-app-pub-3024203658255761/4150719933</string>
     <string name="descricao_desligada">Imagem que descreve a funcionalidade de desligar a lanterna</string>
     <string name="descricao_ligada">Imagem que descreve a funcionalidade de ligar a lanterna</string>
 

@@ -55,6 +55,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
+    @Override
+    protected void onPause() {
+
+        if(this.adView != null){
+            this.adView.pause();
+        }
+
+        super.onPause();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(this.adView != null) {
+            this.adView.resume();
+        }
+    }
+
     @OnClick(R.id.imagemView)
     @Override
     public void onClick(View v) {
@@ -82,6 +103,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onDestroy() {
+
+        if(this.adView != null) {
+            this.adView.destroy();
+        }
+
         super.onDestroy();
 
         if(this.lanterna.isFlashLigado()) {
