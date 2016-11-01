@@ -8,8 +8,8 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:background="@color/blackBackground"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/blackBackground"
     tools:context="br.com.apesoftware.lanterna.ui.MainActivity">
 
 
@@ -17,10 +17,21 @@
 
 
    <ImageView
+      android:src="@drawable/imagem_desligada"
        android:id="@+id/imagemView"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:src="@drawable/imagem_desligada"
-       android:layout_gravity="center"/>
+       android:layout_gravity="center"
+       android:contentDescription="@string/descricao_desligada"/>
+
+
+   <com.google.android.gms.ads.AdView
+       android:id="@+id/adView"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_gravity="bottom|center"
+       ads:adSize="BANNER"
+       ads:adUnitId="@string/banner_ad_unit_id">
+   </com.google.android.gms.ads.AdView>
 
 </FrameLayout>

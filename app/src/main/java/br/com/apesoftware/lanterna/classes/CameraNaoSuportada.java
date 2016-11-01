@@ -45,9 +45,6 @@ public class CameraNaoSuportada extends CameraAbstract {
             if(this.camera == null)
                 throw  new CameraNaoDisponivelException(this.mensagemParaCameraNaoDisponivel);
         }
-        catch (CameraNaoDisponivelException ex) {
-            throw ex;
-        }
         catch (RuntimeException ex) {
             throw new CameraNaoDisponivelException(this.mensagemParaCameraEmUso);
         }
